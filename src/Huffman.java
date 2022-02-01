@@ -38,25 +38,37 @@ public class Huffman {
 				tree.add(new Node(i, frecuencias[i], null, null));
 			}
 		}
+		//Lo siguiente controla el caso en que la entrada que se de tenga tamaño uno (solo un caracter)
 		if (tree.size() == 1) {
 			tree.add(new Node(1, null, null));
 			
 		}
+		/* 
+		 * Este ciclo arma el árbol de Huffman, ya que el montículo binario implementado como la cola
+		 * de prioridad, organiza los elementos de manera ascendente, y se arman las ramas del árbol de 
+		 * acuerdo al algoritmo de la codificación Huffman (Se escogen las frecuencias más bajas entre las
+		 * presentes y ses asigna como padre la suma de las frecuencias), esto se hará hasta que
+		 * solo quede un elemento presente en la cola, el cual será la raíz del árbol.
+		 */
 		while(tree.size() > 1) {
 			
 			Node izquierda = tree.poll();
 			Node derecha = tree.poll();
 			Node padre = new Node(izquierda.frecuencia + derecha.frecuencia, izquierda, derecha);
-			tree.add(padre);
+			tree.add(padre); // se añade el padre a la cola de prioridad para compararse con las otras frecuencias
 		}
-		return tree.poll();
+		return tree.poll();// se retorna la raíz del árbol.
 	}
 	
 
 	public static void main(String[] args) {
+		/*
+		 * Se pide que el usuario ingrese el texto a ser codificado, y se dan las instrucciones de cómo hacerlo
+		 * en detalle:
+		 */
 		Scanner input = new Scanner(System.in);
 		String test = "";
-		System.out.println("escriba el texto a codificar (Terminando con '-1'), puede incluir espacios," + "\n" +
+		System.out.println("Escriba el texto a codificar (Terminando con '-1' y Enter), puede incluir espacios," + "\n" +
 		"cambios de linea y cualquier caracter especial presente en la tabla ASCII");
 		System.out.println();
 		while (true) {
@@ -68,9 +80,13 @@ public class Huffman {
 			}
 		}
 		input.close();
-		int[] ft = ASCII(test); 
-		Node n = Tree(ft);
-		n.building(n);
+		int[] ft = ASCII(test); // se crea la tabla de frecuencias ASCII
+		Node n = Tree(ft); // raíz del árbol
+		n.building(n); // se recorre el árbol en en-orden para asignar los strings de 0's y 1's
+		/*
+		 * Uno de los objetivos de este código es resaltar la compresión del texto, y se intenta mostrar
+		 * cuántos bits hubiese tomado la codificación origninal.
+		 */
 		System.out.println("la cantidad original de bits fue de: " + bytes * 8);
 		
 		System.out.println();
