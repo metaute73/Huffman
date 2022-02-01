@@ -9,7 +9,7 @@ public class Huffman {
 	 */
 	private static final int alfabeto = 256; // (ASCII)
 	static int bytes = 0;
-	/*esta tabla hash nos ayudara a guardar el codigo prefijo de cada caracter que se registre en el 
+	/*Esta tabla hash nos ayudara a guardar el codigo prefijo de cada caracter que se registre en el 
 	 * texto ingresado
 	 */
 	static HashMap<Character, String> codigo = new HashMap<>();
